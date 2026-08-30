@@ -1,26 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+
+<!--
+    AndroidApp3 - Compass
+
+    Android Manifest file.
+
+    This file defines:
+    - Location permissions
+    - Application name
+    - Application icon
+    - MainActivity
+    - Launcher configuration
+-->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ================================================= -->
+    <!-- LOCATION PERMISSIONS                              -->
+    <!-- ================================================= -->
+
+    <!-- Precise location permission -->
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- Approximate location permission -->
+    <uses-permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
+    <!-- ================================================= -->
+    <!-- APPLICATION                                       -->
+    <!-- ================================================= -->
 
     <application
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Compass"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidApp3">
+
+        <!-- ================================================= -->
+        <!-- MAIN ACTIVITY                                     -->
+        <!-- ================================================= -->
+
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="true">
 
-                <category android:name="android.intent.category.LAUNCHER" />
+            <!-- Makes MainActivity the launcher screen -->
+            <intent-filter>
+
+                <action
+                    android:name="android.intent.action.MAIN" />
+
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
+
         </activity>
+
     </application>
 
 </manifest>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <!--
+        Compass vector graphic for AndroidApp3.
+
+        This is a simple compass design made with
+        Android vector drawable shapes.
+
+        MainActivity will rotate this image later
+        using the bearing calculated from the sensors.
+    -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Outer compass circle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#000000"
+        android:strokeWidth="4"
+        android:pathData="
+            M100,10
+            A90,90 0,1 0,100,190
+            A90,90 0,1 0,100,10" />
+
+    <!-- North arrow -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="
+            M100,25
+            L115,100
+            L100,85
+            L85,100
+            Z" />
+
+    <!-- South arrow -->
+    <path
+        android:fillColor="#888888"
+        android:pathData="
+            M100,175
+            L85,100
+            L100,115
+            L115,100
+            Z" />
+
+    <!-- Center circle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeColor="#000000"
+        android:strokeWidth="3"
+        android:pathData="
+            M100,92
+            A8,8 0,1 0,100,108
+            A8,8 0,1 0,100,92" />
+
+</vector>
+

@@ -1,3 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <resources>
+
     <string name="app_name">AndroidApp3</string>
+
+    <string name="compass_title">Compass</string>
+
+    <string name="compass_image_description">Compass</string>
+
+    <string name="default_bearing">Bearing: 0°</string>
+
+    <string name="default_direction">North</string>
+
+    <string name="compass_status_starting">Compass status: Starting...</string>
+
+    <string name="default_accelerometer">Accelerometer
+X: 0.00
+Y: 0.00
+Z: 0.00</string>
+
+    <string name="default_magnetic_field">Magnetic Field
+X: 0.00
+Y: 0.00
+Z: 0.00</string>
+
+    <string name="default_latitude">Latitude: Not available</string>
+
+    <string name="default_longitude">Longitude: Not available</string>
+
+    <string name="get_location">GET LOCATION</string>
+
 </resources>
