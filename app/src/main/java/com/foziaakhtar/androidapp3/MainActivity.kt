@@ -1,6 +1,11 @@
 package com.foziaakhtar.androidapp3
 
+// =====================================================
+// IMPORTS
+// =====================================================
+
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -8,19 +13,55 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.location.Location
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+
 import kotlin.math.roundToInt
 
-class MainActivity : AppCompatActivity(), SensorEventListener {
+
+// =====================================================
+// MAIN ACTIVITY
+// =====================================================
+
+/**
+ * MainActivity
+ *
+ * Assignment 6 - AndroidApp3
+ *
+ * This activity contains the compass screen.
+ *
+ * FEATURES:
+ *
+ * 1. Accelerometer sensor
+ * 2. Magnetic field sensor
+ * 3. Compass bearing
+ * 4. Compass direction
+ * 5. Compass image rotation
+ * 6. GET LOCATION button
+ * 7. Latitude and longitude
+ * 8. Toolbar menu navigation
+ *
+ * TOOLBAR MENU:
+ *
+ * - Compass
+ * - Live Location
+ * - Map
+ */
+class MainActivity : AppCompatActivity(),
+    SensorEventListener {
+
 
     // =====================================================
     // SENSOR VARIABLES
@@ -37,13 +78,17 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     // SENSOR DATA
     // =====================================================
 
-    private val gravity = FloatArray(3)
+    private val gravity =
+        FloatArray(3)
 
-    private val magnetic = FloatArray(3)
+    private val magnetic =
+        FloatArray(3)
 
-    private val rotationMatrix = FloatArray(9)
+    private val rotationMatrix =
+        FloatArray(9)
 
-    private val orientation = FloatArray(3)
+    private val orientation =
+        FloatArray(3)
 
 
     // =====================================================
@@ -58,21 +103,29 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     // SCREEN ELEMENTS
     // =====================================================
 
-    private lateinit var compassImage: ImageView
+    private lateinit var compassImage:
+            ImageView
 
-    private lateinit var bearingText: TextView
+    private lateinit var bearingText:
+            TextView
 
-    private lateinit var directionText: TextView
+    private lateinit var directionText:
+            TextView
 
-    private lateinit var compassStatusText: TextView
+    private lateinit var compassStatusText:
+            TextView
 
-    private lateinit var accelerometerText: TextView
+    private lateinit var accelerometerText:
+            TextView
 
-    private lateinit var magneticFieldText: TextView
+    private lateinit var magneticFieldText:
+            TextView
 
-    private lateinit var latitudeText: TextView
+    private lateinit var latitudeText:
+            TextView
 
-    private lateinit var longitudeText: TextView
+    private lateinit var longitudeText:
+            TextView
 
 
     // =====================================================
@@ -94,11 +147,26 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 ] == true
 
-            if (fineLocationGranted || coarseLocationGranted) {
+
+            // =================================================
+            // PERMISSION GRANTED
+            // =================================================
+
+            if (
+                fineLocationGranted ||
+                coarseLocationGranted
+            ) {
 
                 getCurrentLocation()
 
-            } else {
+            }
+
+
+            // =================================================
+            // PERMISSION DENIED
+            // =================================================
+
+            else {
 
                 Toast.makeText(
                     this,
@@ -113,11 +181,20 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     // ON CREATE
     // =====================================================
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(
+        savedInstanceState: Bundle?
+    ) {
 
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+
+        // =================================================
+        // LOAD MAIN LAYOUT
+        // =================================================
+
+        setContentView(
+            R.layout.activity_main
+        )
 
 
         // =================================================
@@ -125,11 +202,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         // =================================================
 
         val toolbar =
-            findViewById<Toolbar>(R.id.toolbar)
+            findViewById<Toolbar>(
+                R.id.toolbar
+            )
 
         setSupportActionBar(toolbar)
 
-        supportActionBar?.title = "Compass"
+        supportActionBar?.title =
+            "Compass"
 
 
         // =================================================
@@ -137,28 +217,44 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         // =================================================
 
         compassImage =
-            findViewById(R.id.compassImage)
+            findViewById(
+                R.id.compassImage
+            )
 
         bearingText =
-            findViewById(R.id.bearingText)
+            findViewById(
+                R.id.bearingText
+            )
 
         directionText =
-            findViewById(R.id.directionText)
+            findViewById(
+                R.id.directionText
+            )
 
         compassStatusText =
-            findViewById(R.id.compassStatusText)
+            findViewById(
+                R.id.compassStatusText
+            )
 
         accelerometerText =
-            findViewById(R.id.accelerometerText)
+            findViewById(
+                R.id.accelerometerText
+            )
 
         magneticFieldText =
-            findViewById(R.id.magneticFieldText)
+            findViewById(
+                R.id.magneticFieldText
+            )
 
         latitudeText =
-            findViewById(R.id.latitudeText)
+            findViewById(
+                R.id.latitudeText
+            )
 
         longitudeText =
-            findViewById(R.id.longitudeText)
+            findViewById(
+                R.id.longitudeText
+            )
 
 
         // =================================================
@@ -169,6 +265,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             findViewById<Button>(
                 R.id.getLocationButton
             )
+
 
         getLocationButton.setOnClickListener {
 
@@ -207,7 +304,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
 
         // =================================================
-        // SENSOR STATUS
+        // CHECK ACCELEROMETER
         // =================================================
 
         if (accelerometer == null) {
@@ -220,11 +317,15 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
 
 
+        // =================================================
+        // CHECK MAGNETIC SENSOR
+        // =================================================
+
         if (magneticField == null) {
 
             Toast.makeText(
                 this,
-                "Magnetic Field sensor is not available.",
+                "Magnetic field sensor is not available.",
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -235,9 +336,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         // =================================================
 
         fusedLocationClient =
-            LocationServices.getFusedLocationProviderClient(
-                this
-            )
+            LocationServices
+                .getFusedLocationProviderClient(
+                    this
+                )
 
 
         // =================================================
@@ -250,7 +352,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
 
     // =====================================================
-    // LOCATION PERMISSION
+    // CHECK LOCATION PERMISSION
     // =====================================================
 
     private fun checkLocationPermission() {
@@ -269,11 +371,24 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             ) == PackageManager.PERMISSION_GRANTED
 
 
-        if (fineLocation || coarseLocation) {
+        // =================================================
+        // PERMISSION ALREADY GRANTED
+        // =================================================
+
+        if (
+            fineLocation ||
+            coarseLocation
+        ) {
 
             getCurrentLocation()
+        }
 
-        } else {
+
+        // =================================================
+        // REQUEST PERMISSION
+        // =================================================
+
+        else {
 
             locationPermissionLauncher.launch(
                 arrayOf(
@@ -291,11 +406,16 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     private fun getCurrentLocation() {
 
+        // =================================================
+        // DOUBLE CHECK LOCATION PERMISSION
+        // =================================================
+
         if (
             ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED &&
+            ) != PackageManager.PERMISSION_GRANTED
+            &&
             ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_COARSE_LOCATION
@@ -312,9 +432,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
 
 
+        // =================================================
+        // GET LAST KNOWN LOCATION
+        // =================================================
+
         fusedLocationClient.lastLocation
 
-            .addOnSuccessListener { location: Location? ->
+            .addOnSuccessListener {
+                    location: Location? ->
 
                 if (location != null) {
 
@@ -330,7 +455,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                             location.longitude
                         )
 
-                } else {
+                }
+
+
+                // =========================================
+                // LOCATION NOT AVAILABLE
+                // =========================================
+
+                else {
 
                     latitudeText.text =
                         "Latitude: Location unavailable"
@@ -345,6 +477,11 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                     ).show()
                 }
             }
+
+
+            // =================================================
+            // LOCATION ERROR
+            // =================================================
 
             .addOnFailureListener {
 
@@ -372,6 +509,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         super.onResume()
 
 
+        // =================================================
+        // REGISTER ACCELEROMETER
+        // =================================================
+
         accelerometer?.let {
 
             sensorManager.registerListener(
@@ -381,6 +522,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             )
         }
 
+
+        // =================================================
+        // REGISTER MAGNETIC FIELD SENSOR
+        // =================================================
 
         magneticField?.let {
 
@@ -401,7 +546,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         super.onPause()
 
-        sensorManager.unregisterListener(this)
+
+        // =================================================
+        // STOP SENSOR LISTENERS
+        // =================================================
+
+        sensorManager.unregisterListener(
+            this
+        )
     }
 
 
@@ -413,19 +565,27 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         event: SensorEvent
     ) {
 
+        // =================================================
+        // IDENTIFY SENSOR
+        // =================================================
+
         when (event.sensor.type) {
 
-            // =============================================
+
+            // =================================================
             // ACCELEROMETER
-            // =============================================
+            // =================================================
 
             Sensor.TYPE_ACCELEROMETER -> {
 
-                gravity[0] = event.values[0]
+                gravity[0] =
+                    event.values[0]
 
-                gravity[1] = event.values[1]
+                gravity[1] =
+                    event.values[1]
 
-                gravity[2] = event.values[2]
+                gravity[2] =
+                    event.values[2]
 
 
                 accelerometerText.text =
@@ -438,17 +598,20 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             }
 
 
-            // =============================================
+            // =================================================
             // MAGNETIC FIELD
-            // =============================================
+            // =================================================
 
             Sensor.TYPE_MAGNETIC_FIELD -> {
 
-                magnetic[0] = event.values[0]
+                magnetic[0] =
+                    event.values[0]
 
-                magnetic[1] = event.values[1]
+                magnetic[1] =
+                    event.values[1]
 
-                magnetic[2] = event.values[2]
+                magnetic[2] =
+                    event.values[2]
 
 
                 magneticFieldText.text =
@@ -462,9 +625,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
 
 
-        // =================================================
+        // =====================================================
         // SENSOR FUSION
-        // =================================================
+        // =====================================================
 
         val success =
             SensorManager.getRotationMatrix(
@@ -477,20 +640,30 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         if (success) {
 
+            // =================================================
+            // GET DEVICE ORIENTATION
+            // =================================================
+
             SensorManager.getOrientation(
                 rotationMatrix,
                 orientation
             )
 
 
-            // Convert radians to degrees.
+            // =================================================
+            // CALCULATE BEARING
+            // =================================================
+
             var bearing =
                 Math.toDegrees(
                     orientation[0].toDouble()
                 ).toFloat()
 
 
-            // Keep bearing between 0 and 360 degrees.
+            // =================================================
+            // CONVERT NEGATIVE BEARING
+            // =================================================
+
             if (bearing < 0) {
 
                 bearing += 360f
@@ -498,7 +671,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
 
             // =================================================
-            // BEARING
+            // DISPLAY BEARING
             // =================================================
 
             bearingText.text =
@@ -509,15 +682,17 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
 
             // =================================================
-            // DIRECTION
+            // DISPLAY DIRECTION
             // =================================================
 
             directionText.text =
-                getDirection(bearing)
+                getDirection(
+                    bearing
+                )
 
 
             // =================================================
-            // COMPASS STATUS
+            // UPDATE COMPASS STATUS
             // =================================================
 
             compassStatusText.text =
@@ -525,36 +700,45 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
 
             // =================================================
-            // ROTATE COMPASS
+            // ROTATE COMPASS IMAGE
             // =================================================
 
-            compassImage.rotation = -bearing
+            compassImage.rotation =
+                -bearing
         }
     }
 
 
     // =====================================================
-    // GET DIRECTION
+    // GET COMPASS DIRECTION
     // =====================================================
 
     private fun getDirection(
         bearing: Float
     ): String {
 
-        val directions = arrayOf(
-            "North",
-            "North-East",
-            "East",
-            "South-East",
-            "South",
-            "South-West",
-            "West",
-            "North-West"
-        )
+        val directions =
+            arrayOf(
+                "North",
+                "North-East",
+                "East",
+                "South-East",
+                "South",
+                "South-West",
+                "West",
+                "North-West"
+            )
 
+
+        // =================================================
+        // CALCULATE DIRECTION INDEX
+        // =================================================
 
         val index =
-            ((bearing + 22.5f) / 45f)
+            (
+                    (bearing + 22.5f) /
+                            45f
+                    )
                 .roundToInt() % 8
 
 
@@ -573,5 +757,126 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         // No action required.
     }
-}
 
+
+    // =====================================================
+    // TOOLBAR MENU
+    // =====================================================
+
+    /**
+     * Creates the toolbar menu.
+     *
+     * Menu options:
+     *
+     * - Compass
+     * - Live Location
+     * - Map
+     */
+    override fun onCreateOptionsMenu(
+        menu: Menu
+    ): Boolean {
+
+        // =================================================
+        // LOAD MENU XML
+        // =================================================
+
+        menuInflater.inflate(
+            R.menu.main_menu,
+            menu
+        )
+
+
+        return true
+    }
+
+
+    // =====================================================
+    // MENU ITEM SELECTION
+    // =====================================================
+
+    /**
+     * Handles toolbar menu selections.
+     *
+     * Opens the appropriate activity
+     * when the user selects an option.
+     */
+    override fun onOptionsItemSelected(
+        item: MenuItem
+    ): Boolean {
+
+        return when (item.itemId) {
+
+
+            // =================================================
+            // COMPASS
+            // =================================================
+
+            R.id.action_compass -> {
+
+                // =================================================
+                // COMPASS IS ALREADY THE MAIN SCREEN
+                // =================================================
+
+                // No new activity is required.
+                true
+            }
+
+
+            // =================================================
+            // LIVE LOCATION
+            // =================================================
+
+            R.id.action_live_location -> {
+
+                // =================================================
+                // OPEN LIVE LOCATION SCREEN
+                // =================================================
+
+                startActivity(
+                    Intent(
+                        this,
+                        LiveLocationActivity::class.java
+                    )
+                )
+
+
+                true
+            }
+
+
+            // =================================================
+            // MAP
+            // =================================================
+
+            R.id.action_map -> {
+
+                // =================================================
+                // OPEN MAP SCREEN
+                // =================================================
+
+                startActivity(
+                    Intent(
+                        this,
+                        MapActivity::class.java
+                    )
+                )
+
+
+                true
+            }
+
+
+            // =================================================
+            // OTHER MENU ITEMS
+            // =================================================
+
+            else -> {
+
+                super.onOptionsItemSelected(
+                    item
+                )
+            }
+        }
+    }
+
+}

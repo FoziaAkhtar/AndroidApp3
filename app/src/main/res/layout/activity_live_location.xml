@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <!--
+        =====================================================
+        ASSIGNMENT 6 - LIVE LOCATION SCREEN
+        =====================================================
+
+        Continuous GPS location screen.
+
+        Features:
+        - GPS status
+        - Latitude
+        - Longitude
+        - Address
+        - Large back button
+        - Attractive layout
+    -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F4F7FB">
+
+
+    <!-- ================================================= -->
+    <!-- TOP APP BAR                                       -->
+    <!-- ================================================= -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#1976D2"
+        android:elevation="6dp">
+
+
+        <!-- ============================================= -->
+        <!-- LARGE BACK BUTTON                              -->
+        <!-- ============================================= -->
+
+        <TextView
+            android:id="@+id/liveLocationBackButton"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:gravity="center"
+            android:text="←"
+            android:textColor="@android:color/white"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="Back to Compass"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+
+
+        <!-- ============================================= -->
+        <!-- TITLE                                          -->
+        <!-- ============================================= -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:paddingStart="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Live Location"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GPS Tracking"
+                android:textColor="#DCEBFA"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+
+        <!-- ============================================= -->
+        <!-- GPS ACTIVE INDICATOR                           -->
+        <!-- ============================================= -->
+
+        <TextView
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="●"
+            android:textColor="#81C784"
+            android:textSize="24sp"
+            android:contentDescription="GPS active" />
+
+    </LinearLayout>
+
+
+    <!-- ================================================= -->
+    <!-- SCROLLABLE CONTENT                                -->
+    <!-- ================================================= -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+
+            <!-- ========================================= -->
+            <!-- PAGE HEADING                               -->
+            <!-- ========================================= -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your Current Position"
+                android:textColor="#172B4D"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:paddingBottom="6dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your location is updated automatically."
+                android:textColor="#607D8B"
+                android:textSize="15sp"
+                android:paddingBottom="20dp" />
+
+
+            <!-- ========================================= -->
+            <!-- STATUS CARD                                -->
+            <!-- ========================================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp"
+                android:background="#E8F5E9"
+                android:elevation="2dp"
+                android:layout_marginBottom="14dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="GPS STATUS"
+                    android:textColor="#388E3C"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="6dp" />
+
+                <TextView
+                    android:id="@+id/liveStatusText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Status: Ready"
+                    android:textColor="#1B5E20"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <!-- ========================================= -->
+            <!-- LATITUDE CARD                              -->
+            <!-- ========================================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp"
+                android:background="@android:color/white"
+                android:elevation="2dp"
+                android:layout_marginBottom="14dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="LATITUDE"
+                    android:textColor="#1976D2"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/liveLatitudeText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Latitude: Waiting..."
+                    android:textColor="#263238"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <!-- ========================================= -->
+            <!-- LONGITUDE CARD                             -->
+            <!-- ========================================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp"
+                android:background="@android:color/white"
+                android:elevation="2dp"
+                android:layout_marginBottom="14dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="LONGITUDE"
+                    android:textColor="#7B1FA2"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/liveLongitudeText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Longitude: Waiting..."
+                    android:textColor="#263238"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <!-- ========================================= -->
+            <!-- ADDRESS CARD                               -->
+            <!-- ========================================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp"
+                android:background="@android:color/white"
+                android:elevation="2dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CURRENT ADDRESS"
+                    android:textColor="#E65100"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/liveAddressText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Address: Waiting..."
+                    android:textColor="#263238"
+                    android:textSize="17sp"
+                    android:lineSpacingExtra="4dp" />
+
+            </LinearLayout>
+
+
+            <!-- ========================================= -->
+            <!-- ASSIGNMENT INFORMATION                    -->
+            <!-- ========================================= -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Assignment 6 • Continuous Location"
+                android:textColor="#90A4AE"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:paddingTop="4dp"
+                android:paddingBottom="12dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+
+

@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-    AndroidApp3 - Compass
-
-    Android Manifest file.
+    =====================================================
+    AndroidApp3 - Compass / Assignment 6
+    Android Manifest
+    =====================================================
 
     This file defines:
     - Location permissions
+    - Internet permission
     - Application name
     - Application icon
     - MainActivity
+    - LiveLocationActivity
+    - MapActivity
     - Launcher configuration
 -->
 
@@ -27,6 +31,10 @@
     <uses-permission
         android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <!-- Internet permission for OpenStreetMap -->
+    <uses-permission
+        android:name="android.permission.INTERNET" />
+
 
     <!-- ================================================= -->
     <!-- APPLICATION                                       -->
@@ -39,6 +47,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidApp3">
+
 
         <!-- ================================================= -->
         <!-- MAIN ACTIVITY                                     -->
@@ -60,6 +69,25 @@
             </intent-filter>
 
         </activity>
+
+
+        <!-- ================================================= -->
+        <!-- LIVE LOCATION ACTIVITY                            -->
+        <!-- ================================================= -->
+
+        <activity
+            android:name=".LiveLocationActivity"
+            android:exported="false" />
+
+
+        <!-- ================================================= -->
+        <!-- MAP ACTIVITY                                      -->
+        <!-- ================================================= -->
+
+        <activity
+            android:name=".MapActivity"
+            android:exported="false" />
+
 
     </application>
 

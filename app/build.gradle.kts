@@ -24,9 +24,17 @@ android {
             "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
+    // =====================================================
+    // BUILD TYPES
+    // =====================================================
+
     buildTypes {
+
         release {
-            // We are not using code shrinking for this assignment.
+
+            // We are not using code shrinking for this
+            // assignment.
             isMinifyEnabled = false
 
             proguardFiles(
@@ -38,14 +46,29 @@ android {
         }
     }
 
+
+    // =====================================================
+    // JAVA COMPATIBILITY
+    // =====================================================
+
     // Java compatibility used by the Android project.
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+
+        sourceCompatibility =
+            JavaVersion.VERSION_11
+
+        targetCompatibility =
+            JavaVersion.VERSION_11
     }
 }
 
+
+// =========================================================
+// DEPENDENCIES
+// =========================================================
+
 dependencies {
+
 
     // =====================================================
     // ANDROID CORE
@@ -53,7 +76,10 @@ dependencies {
 
     // Provides basic Android functionality and Kotlin
     // extensions used by the application.
-    implementation("androidx.core:core-ktx:1.15.0")
+
+    implementation(
+        "androidx.core:core-ktx:1.15.0"
+    )
 
 
     // =====================================================
@@ -62,7 +88,10 @@ dependencies {
 
     // Provides AppCompatActivity and compatibility
     // features for different Android versions.
-    implementation("androidx.appcompat:appcompat:1.7.0")
+
+    implementation(
+        "androidx.appcompat:appcompat:1.7.0"
+    )
 
 
     // =====================================================
@@ -70,7 +99,10 @@ dependencies {
     // =====================================================
 
     // Provides Material Design components for the UI.
-    implementation("com.google.android.material:material:1.12.0")
+
+    implementation(
+        "com.google.android.material:material:1.12.0"
+    )
 
 
     // =====================================================
@@ -78,10 +110,28 @@ dependencies {
     // =====================================================
 
     // Provides FusedLocationProviderClient.
-    // This allows the app to access the device's GPS
-    // location.
+    // This allows the app to access device location.
+
     implementation(
         "com.google.android.gms:play-services-location:21.3.0"
+    )
+
+
+    // =====================================================
+    // OPENSTREETMAP / OSMANDROID
+    // =====================================================
+
+    // Provides OpenStreetMap support for Assignment 6.
+    //
+    // MapActivity uses:
+    // - MapView
+    // - GeoPoint
+    // - Marker
+    // - TileSourceFactory
+    // - OpenStreetMap tiles
+
+    implementation(
+        "org.osmdroid:osmdroid-android:6.1.20"
     )
 
 
@@ -90,9 +140,14 @@ dependencies {
     // =====================================================
 
     // Used for local unit tests.
-    testImplementation("junit:junit:4.13.2")
+
+    testImplementation(
+        "junit:junit:4.13.2"
+    )
+
 
     // Used for Android instrumented tests.
+
     androidTestImplementation(
         "androidx.test.ext:junit:1.2.1"
     )
@@ -101,3 +156,5 @@ dependencies {
         "androidx.test.espresso:espresso-core:3.6.1"
     )
 }
+
+
